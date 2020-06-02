@@ -7,13 +7,13 @@ const bcrypt = require('bcrypt');
 const serviUsers = require('./../../services/users');
 const config = require('./../../../config');
 
-router.route('/users')
+router.route('/')
 .post((req, res) => {
     const myPlaintextPassword = req.body.password;
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(myPlaintextPassword, salt);
     let newUser = {
-        id : serviUsers.usersArray.length,
+        id : serviUsers.userArrLength(),
         username : req.body.username,
         password : hash
     };
@@ -23,7 +23,7 @@ router.route('/users')
     res.status(200).send(`El usuario ${newUser.username}, fue creado`);   
 });
 
-router.route('/users/login')
+router.route('/login')
 .post((req, res) => {
     const username = req.body.username;
     const password = req.body.password;

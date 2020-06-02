@@ -6,11 +6,6 @@ const middleWares = require('./../../middleware');
 
 
 router.route('/')
-.get((req, res) => {
-    res.status(200).send(serviBook.listBooks(serviBook.booksArray))
-});
-
-router.route('/books')
 .post(middleWares.auth, (req, res) => {
     let newBook = {
         id: serviBook.arrayLength(),
@@ -23,7 +18,7 @@ router.route('/books')
     res.status(200).send(`El Libro ${newBook.name}, fue creado`)
 });
 
-router.route('/books/:id')
+router.route('/:id')
 .get((req, res) => {
     let bookId = req.params.id;
     let bookFilter = serviBook.booksArray.filter( (obj) => {
